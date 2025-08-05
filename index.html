@@ -1,630 +1,573 @@
 <!DOCTYPE html>
 <html lang="pt-BR" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Professor Celso Barreto - Educação, Transição Energética e Tecnologia
-    </title>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor Celso Barreto - Educação, Transição Energética e Tecnologia</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
+    <!-- Alpine.js for Carousel & Tabs -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0A2A5B 0%, #1e3a8a 50%, #3b82f6 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.7); }
+        }
+        
+        #three-container {
+            pointer-events: none;
+        }
+        
+        #three-container canvas {
+            pointer-events: none !important;
+        }
+        
+        .navbar-mobile {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .navbar-mobile.active {
+            transform: translateX(0);
+        }
+        
+        .hamburger span {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .form-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            animation: slideInUp 0.5s ease-out;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Timeline and Skills Styles */
+        .timeline-item, .skills-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-2xl font-bold text-blue-900">Celso Barreto</a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Início</a>
+                    <a href="#about" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Sobre</a>
+                    <a href="#timeline" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Linha do Tempo</a>
+                    <a href="#skills" class="text-gray-600 hover:text-blue-600 font-medium transition-colors">Habilidades</a>
+                </div>
+                
+                <div class="hidden md:block">
+                     <a href="#contact" class="bg-blue-600 text-white px-5 py-2.5 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300">Contato</a>
+                </div>
 
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  
-  <body class="bg-gray-50 text-gray-800">
-    <nav
-      class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-200"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-20">
-          <div class="flex-shrink-0">
-            <a href="#home" class="text-2xl font-bold text-blue-900"
-              >Celso Barreto</a
-            >
-          </div>
-
-          <!-- Desktop Menu -->
-          <div class="hidden md:flex items-center space-x-8">
-            <a
-              href="#home"
-              class="text-gray-600 hover:text-blue-600 font-medium transition-colors"
-              >Início</a
-            >
-            <a
-              href="#about"
-              class="text-gray-600 hover:text-blue-600 font-medium transition-colors"
-              >Sobre</a
-            >
-            <a
-              href="#expertise"
-              class="text-gray-600 hover:text-blue-600 font-medium transition-colors"
-              >Áreas de Atuação</a
-            >
-            <a
-              href="#research"
-              class="text-gray-600 hover:text-blue-600 font-medium transition-colors"
-              >Pesquisas</a
-            >
-          </div>
-
-          <div class="hidden md:block">
-            <a
-              href="#contact"
-              class="bg-blue-600 text-white px-5 py-2.5 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300"
-              >Contato</a
-            >
-          </div>
-
-          <!-- Mobile menu button -->
-          <div class="md:hidden">
-            <button
-              class="hamburger flex flex-col justify-center items-center w-8 h-8"
-              onclick="toggleMobileMenu()"
-            >
-              <span class="block w-6 h-0.5 bg-gray-800 mb-1.5"></span>
-              <span class="block w-6 h-0.5 bg-gray-800 mb-1.5"></span>
-              <span class="block w-6 h-0.5 bg-gray-800"></span>
-            </button>
-          </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="hamburger flex flex-col justify-center items-center w-8 h-8" onclick="toggleMobileMenu()">
+                        <span class="block w-6 h-0.5 bg-gray-800 mb-1.5"></span>
+                        <span class="block w-6 h-0.5 bg-gray-800 mb-1.5"></span>
+                        <span class="block w-6 h-0.5 bg-gray-800"></span>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <!-- Mobile Menu -->
-      <div
-        class="navbar-mobile md:hidden absolute top-20 left-0 w-full bg-white shadow-lg"
-      >
-        <div class="px-4 pt-4 pb-6 space-y-4">
-          <a
-            href="#home"
-            class="text-gray-700 hover:text-blue-600 block text-lg font-medium"
-            onclick="toggleMobileMenu()"
-            >Início</a
-          >
-          <a
-            href="#about"
-            class="text-gray-700 hover:text-blue-600 block text-lg font-medium"
-            onclick="toggleMobileMenu()"
-            >Sobre</a
-          >
-          <a
-            href="#expertise"
-            class="text-gray-700 hover:text-blue-600 block text-lg font-medium"
-            onclick="toggleMobileMenu()"
-            >Áreas de Atuação</a
-          >
-          <a
-            href="#research"
-            class="text-gray-700 hover:text-blue-600 block text-lg font-medium"
-            onclick="toggleMobileMenu()"
-            >Pesquisas</a
-          >
-          <a
-            href="#contact"
-            class="mt-4 inline-block w-full text-center bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all"
-            onclick="toggleMobileMenu()"
-            >Contato</a
-          >
+        
+        <!-- Mobile Menu -->
+        <div class="navbar-mobile md:hidden absolute top-20 left-0 w-full bg-white shadow-lg">
+            <div class="px-4 pt-4 pb-6 space-y-4">
+                <a href="#home" class="text-gray-700 hover:text-blue-600 block text-lg font-medium" onclick="toggleMobileMenu()">Início</a>
+                <a href="#about" class="text-gray-700 hover:text-blue-600 block text-lg font-medium" onclick="toggleMobileMenu()">Sobre</a>
+                <a href="#timeline" class="text-gray-700 hover:text-blue-600 block text-lg font-medium" onclick="toggleMobileMenu()">Linha do Tempo</a>
+                <a href="#skills" class="text-gray-700 hover:text-blue-600 block text-lg font-medium" onclick="toggleMobileMenu()">Habilidades</a>
+                <a href="#contact" class="mt-4 inline-block w-full text-center bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-all" onclick="toggleMobileMenu()">Contato</a>
+            </div>
         </div>
-      </div>
     </nav>
 
-    <!-- Hero Section with Carousel -->
-    <section
-      id="home"
-      class="min-h-screen flex flex-col justify-center items-center relative overflow-hidden"
-      x-data="{ activeSlide: 1, slides: [
+    <!-- New Home Section -->
+    <section id="home" class="pt-32 pb-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="flex justify-center lg:justify-end">
+                    <div class="relative">
+                        <img src="imgs/fotocelsofeliz.jpeg" alt="fotocelsofeliz" class="rounded-2xl shadow-2xl w-full max-w-sm object-cover">
+                        <div class="absolute -top-4 -left-4 w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-20 animate-pulse"></div>
+                        <div class="absolute -bottom-4 -right-4 w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full opacity-20 animate-pulse delay-1000"></div>
+                    </div>
+                </div>
+                <div class="space-y-6 text-center lg:text-left">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Celso Barreto da Silva</h1>
+                    <h2 class="text-xl md:text-2xl font-medium text-blue-600">Doutorando em Difusão do Conhecimento | Mestre em Sistemas e Computação</h2>
+                    <p class="text-lg text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                        Pesquisador, professor e consultor com foco na interseção entre tecnologia, gestão e educação, com experiência em projetos de inovação, desenvolvimento de sistemas e mentoria.
+                    </p>
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#about" class="inline-flex items-center px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 pulse-glow w-full sm:w-auto">
+                            Conheça a Trajetória
+                        </a>
+                        <a href="http://lattes.cnpq.br/1499121169077928" target="_blank" class="inline-flex items-center px-8 py-3 bg-gray-100 text-gray-800 font-semibold rounded-lg hover:bg-gray-200 transition-all duration-300 w-full sm:w-auto">
+                            Currículo Lattes
+                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="h-[60vh] flex flex-col justify-center items-center relative overflow-hidden" 
+             x-data="{ activeSlide: 1, slides: [
                  { id: 1, title: 'Inovação na Educação', image: 'https://placehold.co/1920x1080/0284c7/ffffff?text=Educação' },
                  { id: 2, title: 'Transição Energética Sustentável', image: 'https://placehold.co/1920x1080/16a34a/ffffff?text=Transição+Energética' },
                  { id: 3, title: 'Tecnologia e Sociedade', image: 'https://placehold.co/1920x1080/4f46e5/ffffff?text=Tecnologia' }
-             ] }"
-      x-init="setInterval(() => { activeSlide = activeSlide % slides.length + 1 }, 5000)"
-    >
-      <!-- Carousel Background Images -->
-      <template x-for="slide in slides" :key="slide.id">
-        <div
-          x-show="activeSlide === slide.id"
-          class="absolute inset-0 z-0"
-          x-transition:enter="transition-opacity ease-in-out duration-1000"
-          x-transition:enter-start="opacity-0"
-          x-transition:enter-end="opacity-100"
-          x-transition:leave="transition-opacity ease-in-out duration-1000"
-          x-transition:leave-start="opacity-100"
-          x-transition:leave-end="opacity-0"
-        >
-          <img
-            :src="slide.image"
-            :alt="slide.title"
-            class="w-full h-full object-cover"
-          />
-        </div>
-      </template>
-
-      <!-- Dark Overlay -->
-      <div class="absolute inset-0 bg-black/60 z-10"></div>
-
-      <!-- Three.js Container on top of overlay -->
-      <div
-        id="three-container"
-        class="absolute top-0 left-0 w-full h-full z-20"
-      ></div>
-
-      <!-- Text Content -->
-      <div class="relative text-center z-30 px-4">
+             ] }" 
+             x-init="setInterval(() => { activeSlide = activeSlide % slides.length + 1 }, 5000)">
+    
+        <!-- Carousel Background Images -->
         <template x-for="slide in slides" :key="slide.id">
-          <div
-            x-show="activeSlide === slide.id"
-            x-transition:enter="transition-opacity ease-in-out duration-700 delay-200"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100"
-            x-transition:leave="transition-opacity ease-in-out duration-700"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-          >
-            <h1
-              class="text-4xl md:text-6xl font-bold text-white mb-4 text-glow"
-              x-text="slide.title"
-            ></h1>
-            <p
-              class="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed"
-            >
-              Explorando o futuro através da pesquisa científica, inovação
-              tecnológica e educação transformadora
-            </p>
-          </div>
+            <div x-show="activeSlide === slide.id" 
+                 class="absolute inset-0 z-0"
+                 x-transition:enter="transition-opacity ease-in-out duration-1000" 
+                 x-transition:enter-start="opacity-0" 
+                 x-transition:enter-end="opacity-100" 
+                 x-transition:leave="transition-opacity ease-in-out duration-1000" 
+                 x-transition:leave-start="opacity-100" 
+                 x-transition:leave-end="opacity-0">
+                <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover">
+            </div>
         </template>
-      </div>
-
-      <!-- Carousel Controls -->
-      <div class="absolute bottom-20 flex space-x-3 z-30">
-        <template x-for="slide in slides" :key="slide.id">
-          <button
-            @click="activeSlide = slide.id"
-            :class="{'bg-white': activeSlide === slide.id, 'bg-white/50': activeSlide !== slide.id}"
-            class="w-3 h-3 rounded-full hover:bg-white transition"
-          ></button>
-        </template>
-      </div>
-
-      <!-- Scroll Indicator -->
-      <div
-        class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-30"
-      >
-        <div
-          class="w-6 h-10 border-2 border-white rounded-full flex justify-center"
-        >
-          <div class="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
+    
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-black/60 z-10"></div>
+    
+        <!-- Three.js Container on top of overlay -->
+        <div id="three-container" class="absolute top-0 left-0 w-full h-full z-20"></div>
+        
+        <!-- Text Content -->
+        <div class="relative text-center z-30 px-4">
+            <template x-for="slide in slides" :key="slide.id">
+                <div x-show="activeSlide === slide.id" 
+                     x-transition:enter="transition-opacity ease-in-out duration-700 delay-200" 
+                     x-transition:enter-start="opacity-0" 
+                     x-transition:enter-end="opacity-100" 
+                     x-transition:leave="transition-opacity ease-in-out duration-700" 
+                     x-transition:leave-start="opacity-100" 
+                     x-transition:leave-end="opacity-0">
+                    <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 text-glow" x-text="slide.title"></h1>
+                </div>
+            </template>
         </div>
-      </div>
-    </section>
-
-    <!-- Areas of Expertise Section -->
-    <section id="expertise" class="py-16 bg-white">
-      <div class="max-w-6xl mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">
-          Áreas de Atuação
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Card 1: Education -->
-          <div
-            class="card-hover bg-white rounded-xl shadow-lg p-8 text-center border border-gray-100"
-          >
-            <div class="flex justify-center mb-4">
-              <svg
-                class="w-16 h-16 text-blue-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 6.253v11.494m-9-5.747h18"
-                ></path>
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 18a6 6 0 100-12 6 6 0 000 12z"
-                ></path>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">
-              Educação e Formação Acadêmica
-            </h3>
-            <p class="text-gray-600">
-              Desenvolvimento de metodologias ativas e tecnologias educacionais
-              para formar profissionais preparados para os desafios do futuro.
-            </p>
-          </div>
-          <!-- Card 2: Energy Transition -->
-          <div
-            class="card-hover bg-white rounded-xl shadow-lg p-8 text-center border border-gray-100"
-          >
-            <div class="flex justify-center mb-4">
-              <svg
-                class="w-16 h-16 text-green-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                ></path>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">
-              Transição Energética e Sustentabilidade
-            </h3>
-            <p class="text-gray-600">
-              Pesquisa e implementação de soluções em energias renováveis,
-              eficiência energética e políticas públicas para um futuro
-              sustentável.
-            </p>
-          </div>
-          <!-- Card 3: Technology -->
-          <div
-            class="card-hover bg-white rounded-xl shadow-lg p-8 text-center border border-gray-100"
-          >
-            <div class="flex justify-center mb-4">
-              <svg
-                class="w-16 h-16 text-orange-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 12h14M12 5l7 7-7 7"
-                ></path>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">
-              Tecnologia e Inovação
-            </h3>
-            <p class="text-gray-600">
-              Aplicação de tecnologias emergentes para resolver problemas
-              complexos e impulsionar o desenvolvimento socioeconômico.
-            </p>
-          </div>
+    
+        <!-- Carousel Controls -->
+        <div class="absolute bottom-8 flex space-x-3 z-30">
+            <template x-for="slide in slides" :key="slide.id">
+                <button @click="activeSlide = slide.id" 
+                        :class="{'bg-white': activeSlide === slide.id, 'bg-white/50': activeSlide !== slide.id}" 
+                        class="w-3 h-3 rounded-full hover:bg-white transition"></button>
+            </template>
         </div>
-      </div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="py-20 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div class="space-y-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
-              Sobre o Professor
-            </h2>
-            <p class="text-lg text-gray-600 leading-relaxed">
-              Minha missão é inspirar e capacitar pessoas a construir um futuro
-              mais justo e sustentável. Acredito que a educação é a principal
-              ferramenta para a transformação social, e dedico minha carreira a
-              criar pontes entre o conhecimento acadêmico e as necessidades da
-              sociedade.
-            </p>
-            <p class="text-lg text-gray-600 leading-relaxed">
-              Com uma abordagem interdisciplinar, busco integrar a tecnologia e
-              a sustentabilidade em todos os meus projetos, preparando meus
-              alunos para serem agentes de mudança em um mundo em constante
-              evolução.
-            </p>
-            <div class="pt-4">
-              <a
-                href="http://lattes.cnpq.br/1499121169077928"
-                target="_blank"
-                class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 pulse-glow"
-              >
-                Acessar Currículo Lattes
-                <svg
-                  class="ml-2 w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                  ></path>
-                </svg>
-              </a>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                 <div class="flex justify-center">
+                    <div class="relative">
+                        <img src="imgs/Professor Celso Barreto.jpeg" alt="Professor Celso Barreto" class="rounded-2xl shadow-2xl w-full max-w-md object-cover">
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-20 animate-pulse"></div>
+                        <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full opacity-20 animate-pulse delay-1000"></div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">Resumo Profissional</h2>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Doutorando em Difusão do Conhecimento pelo IFBA e Mestre em Sistemas e Computação pela UNIFACS. Possui uma trajetória multidisciplinar com graduações em Administração, Matemática e Análise de Sistemas, além de pós-graduações em Metodologia do Ensino e Docência Superior.
+                    </p>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Com vasta experiência como docente, coordenador e instrutor em instituições como SENAI, SENAC e faculdades, atuou também em projetos internacionais em Angola. Hoje, é mentor, consultor empresarial e Instrutor 3 no SENAI CIMATEC, focando em gestão, tecnologia e desenvolvimento de pessoas.
+                    </p>
+                </div>
             </div>
-          </div>
-          <div class="flex justify-center">
-            <div class="relative">
-              <img
-                src="https://i.ibb.co/6nC1z9s/302755513-552973373289437-3932739178225541653-n.jpg"
-                alt="Professor Celso Barreto"
-                class="rounded-2xl shadow-2xl"
-              />
-              <div
-                class="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full opacity-20 animate-pulse"
-              ></div>
-              <div
-                class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full opacity-20 animate-pulse delay-1000"
-              ></div>
-            </div>
-          </div>
         </div>
-      </div>
     </section>
 
-    <!-- Research Section -->
-    <section id="research" class="py-20 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2
-          class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-16"
-        >
-          Pesquisas e Publicações
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div
-            class="card-hover bg-white rounded-xl shadow-lg p-6 border border-gray-100"
-          >
-            <div class="flex items-center justify-between mb-4">
-              <span
-                class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium"
-                >Artigo em Periódico</span
-              >
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-3">
-              Tecnologias Digitais na Educação Superior
-            </h3>
-            <p class="text-gray-600 mb-4">
-              Análise das metodologias ativas e seu impacto na formação
-              acadêmica contemporânea.
-            </p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-500">2024</span>
-              <button class="text-blue-600 hover:text-blue-800 font-medium">
-                Leia mais →
-              </button>
-            </div>
-          </div>
+    <!-- Timeline Section -->
+    <section id="timeline" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-16">Linha do Tempo</h2>
+            <div class="relative wrap overflow-hidden p-10 h-full">
+                <div class="border-2-2 absolute border-opacity-20 border-gray-700 h-full border" style="left: 50%"></div>
+                
+                <div class="timeline-item mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full"></div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-gray-800 text-xl">2025 - Doutorado</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-600">Início do Doutorado em Difusão do Conhecimento no Instituto Federal da Bahia (IFBA).</p>
+                    </div>
+                </div>
 
-          <div
-            class="card-hover bg-white rounded-xl shadow-lg p-6 border border-gray-100"
-          >
-            <div class="flex items-center justify-between mb-4">
-              <span
-                class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium"
-                >Capítulo de Livro</span
-              >
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-3">
-              Sustentabilidade e Matriz Energética
-            </h3>
-            <p class="text-gray-600 mb-4">
-              Perspectivas sobre a transição energética no contexto brasileiro e
-              global.
-            </p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-500">2023</span>
-              <button class="text-blue-600 hover:text-blue-800 font-medium">
-                Leia mais →
-              </button>
-            </div>
-          </div>
+                <div class="timeline-item mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full"></div>
+                    <div class="order-1 bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-white text-xl">2024 - SENAI CIMATEC</h3>
+                        <p class="text-sm font-medium leading-snug tracking-wide text-gray-300">Assume a posição de Instrutor 3 na Universidade SENAI CIMATEC.</p>
+                    </div>
+                </div>
 
-          <div
-            class="card-hover bg-white rounded-xl shadow-lg p-6 border border-gray-100"
-          >
-            <div class="flex items-center justify-between mb-4">
-              <span
-                class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-medium"
-                >Artigo de Conferência</span
-              >
+                <div class="timeline-item mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full"></div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-gray-800 text-xl">2023 - Mestrado</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-600">Conclusão do Mestrado em Sistemas e Computação pela UNIFACS, com dissertação sobre previsão de evasão com Machine Learning.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full"></div>
+                    <div class="order-1 bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-white text-xl">2012 a 2021 - SENAI</h3>
+                        <p class="text-sm font-medium leading-snug tracking-wide text-gray-300">Longa trajetória no SENAI, atuando como Coordenador Técnico e Instrutor Nível 3 nos cursos de Desenvolvimento de Sistemas e Redes.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full"></div>
+                    <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="font-bold text-gray-800 text-xl">2010 a 2011 - Angola</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-600">Atuação como líder de projeto e instrutor na província do Bié, Angola, ministrando cursos técnicos pelo Ministério da Educação.</p>
+                    </div>
+                </div>
             </div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-3">
-              Inovação Tecnológica e Desenvolvimento
-            </h3>
-            <p class="text-gray-600 mb-4">
-              Estudo sobre o papel da tecnologia no desenvolvimento econômico
-              sustentável.
-            </p>
-            <div class="flex justify-between items-center">
-              <span class="text-sm text-gray-500">2023</span>
-              <button class="text-blue-600 hover:text-blue-800 font-medium">
-                Leia mais →
-              </button>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">Habilidades e Competências</h2>
+            <p class="text-center text-gray-600 mb-16">Um resumo das principais ferramentas e metodologias aplicadas em projetos e na academia.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Card: Desenvolvimento e Tecnologia -->
+                <div class="skills-card card-hover bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                    <div class="flex justify-center mb-6">
+                        <svg class="w-16 h-16 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Desenvolvimento e Tecnologia</h3>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">HTML5/CSS</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">JavaScript</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Java OO</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">PHP</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Python</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">SQLSERVER</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">MySQL</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">PostgreSQL</span>
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">UML</span>
+                    </div>
+                </div>
+
+                <!-- Card: Gestão e Metodologias -->
+                <div class="skills-card card-hover bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                     <div class="flex justify-center mb-6">
+                        <svg class="w-16 h-16 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Gestão e Metodologias</h3>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Scrum</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Design Thinking</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">UX/UI</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Six Sigma</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">PDCA</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">5S</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">SWOT</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">5W2H</span>
+                    </div>
+                </div>
+
+                <!-- Card: Consultoria e Mentoria -->
+                <div class="skills-card card-hover bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+                     <div class="flex justify-center mb-6">
+                        <svg class="w-16 h-16 text-orange-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.5-2.962a3.75 3.75 0 015.25 0m-5.25 0a3.75 3.75 0 00-5.25 0M3 13.5a9.094 9.094 0 013.741-.479 3 3 0 014.682-2.72M13.5 5.25v3.375c0 .621.504 1.125 1.125 1.125h3.375M9 11.25a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Consultoria e Mentoria</h3>
+                    <div class="flex flex-wrap justify-center gap-2">
+                         <span class="bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-full">Gestão Estratégica</span>
+                         <span class="bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-full">Solução de Problemas</span>
+                         <span class="bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-full">Desenvolvimento de Pessoas</span>
+                         <span class="bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-full">Inovação Tecnológica</span>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="text-center mt-12">
-          <a
-            href="#"
-            class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300"
-          >
-            Ver mais publicações
-          </a>
-        </div>
-      </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="py-20 gradient-bg">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4">
-          Entre em Contato
-        </h2>
-        <p class="text-xl text-blue-100 text-center mb-12">
-          Vamos conversar sobre educação, pesquisa e inovação
-        </p>
-
-        <div class="bg-white/10 p-8 rounded-2xl backdrop-blur-sm">
-          <form class="space-y-6" onsubmit="handleFormSubmit(event)">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <input
-                type="text"
-                name="name"
-                required
-                class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50"
-                placeholder="Seu Nome"
-              />
-              <input
-                type="email"
-                name="email"
-                required
-                class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50"
-                placeholder="Seu E-mail"
-              />
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4">Entre em Contato</h2>
+            <p class="text-xl text-blue-100 text-center mb-12">Vamos conversar sobre educação, pesquisa e inovação</p>
+            
+            <div class="bg-white/10 p-8 rounded-2xl backdrop-blur-sm">
+                <form class="space-y-6" onsubmit="handleFormSubmit(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <input type="text" name="name" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Seu Nome">
+                        <input type="email" name="email" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Seu E-mail">
+                    </div>
+                    <input type="text" name="subject" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Assunto">
+                    <textarea name="message" rows="4" required class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50 resize-none" placeholder="Sua Mensagem"></textarea>
+                    <button type="submit" class="w-full bg-white text-blue-900 font-semibold py-3 px-6 rounded-lg hover:bg-blue-50 transition-all duration-300 pulse-glow">
+                        Enviar Mensagem
+                    </button>
+                </form>
             </div>
-            <input
-              type="text"
-              name="subject"
-              required
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50"
-              placeholder="Assunto"
-            />
-            <textarea
-              name="message"
-              rows="4"
-              required
-              class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-white/50 resize-none"
-              placeholder="Sua Mensagem"
-            ></textarea>
-            <button
-              type="submit"
-              class="w-full bg-white text-blue-900 font-semibold py-3 px-6 rounded-lg hover:bg-blue-50 transition-all duration-300 pulse-glow"
-            >
-              Enviar Mensagem
-            </button>
-          </form>
+            
+            <div id="success-message" class="hidden mt-8 p-4 rounded-lg text-white text-center form-success">
+                <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Mensagem enviada com sucesso! Retornaremos em breve.
+            </div>
         </div>
-
-        <div
-          id="success-message"
-          class="hidden mt-8 p-4 rounded-lg text-white text-center form-success"
-        >
-          <svg
-            class="w-6 h-6 inline-block mr-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 13l4 4L19 7"
-            ></path>
-          </svg>
-          Mensagem enviada com sucesso! Retornaremos em breve.
-        </div>
-      </div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 class="text-xl font-bold mb-4">Professor Celso Barreto</h3>
-            <p class="text-gray-400">
-              Conectando educação, transição energética e tecnologia para um
-              futuro sustentável.
-            </p>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold mb-4">Links Rápidos</h3>
-            <ul class="space-y-2">
-              <li>
-                <a
-                  href="#home"
-                  class="text-gray-400 hover:text-white transition-colors"
-                  >Início</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#about"
-                  class="text-gray-400 hover:text-white transition-colors"
-                  >Sobre</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#research"
-                  class="text-gray-400 hover:text-white transition-colors"
-                  >Pesquisas</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  class="text-gray-400 hover:text-white transition-colors"
-                  >Contato</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="text-lg font-semibold mb-4">Conecte-se</h3>
-            <div class="flex space-x-4">
-              <a
-                href="#"
-                class="text-gray-400 hover:text-white transition-colors"
-              >
-                <svg
-                  class="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </a>
-              <a
-                href="#"
-                class="text-gray-400 hover:text-white transition-colors"
-              >
-                <svg
-                  class="w-6 h-6"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-14c-3.313 0-6 2.687-6 6s2.687 6 6 6 6-2.687 6-6-2.687-6-6-6zm0 10c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"
-                  />
-                </svg>
-              </a>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Professor Celso Barreto</h3>
+                    <p class="text-gray-400">Doutorando em Difusão do Conhecimento, Mestre em Sistemas e Computação.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">Início</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">Sobre</a></li>
+                        <li><a href="#timeline" class="text-gray-400 hover:text-white transition-colors">Linha do Tempo</a></li>
+                        <li><a href="#skills" class="text-gray-400 hover:text-white transition-colors">Habilidades</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Conecte-se</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 22c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zm0-14c-3.313 0-6 2.687-6 6s2.687 6 6 6 6-2.687 6-6-2.687-6-6-6zm0 10c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 Professor Celso Barreto. Todos os direitos reservados.</p>
+            </div>
         </div>
-        <div class="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p class="text-gray-400">
-            &copy; 2024 Professor Celso Barreto. Todos os direitos reservados.
-          </p>
-        </div>
-      </div>
     </footer>
-  </body>
+
+    <script>
+        // Three.js Animation
+        let scene, camera, renderer, particles, container;
+        let animationId;
+
+        function initThreeJS() {
+            container = document.getElementById('three-container');
+            if (!container) return;
+            
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setClearColor(0x000000, 0);
+            container.appendChild(renderer.domElement);
+
+            const particleCount = 500;
+            const particlesGeometry = new THREE.BufferGeometry();
+            const posArray = new Float32Array(particleCount * 3);
+
+            for (let i = 0; i < particleCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 20;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.025,
+                color: 0xffffff,
+                transparent: true,
+                opacity: 0.5
+            });
+
+            particles = new THREE.Points(particlesGeometry, particleMaterial);
+            scene.add(particles);
+            camera.position.z = 5;
+            animate();
+        }
+
+        function animate() {
+            animationId = requestAnimationFrame(animate);
+            particles.rotation.y += 0.0005;
+            particles.rotation.x += 0.0005;
+            renderer.render(scene, camera);
+        }
+
+        function handleResize() {
+            if (container && camera && renderer) {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            }
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.navbar-mobile');
+            const hamburger = document.querySelector('.hamburger');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const successMessage = document.getElementById('success-message');
+            form.style.display = 'none';
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+                form.style.display = 'block';
+                successMessage.classList.add('hidden');
+                form.reset();
+            }, 3000);
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initThreeJS();
+            window.addEventListener('resize', handleResize);
+            
+            const animateElements = document.querySelectorAll('.card-hover, .timeline-item, .skills-card');
+            animateElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        window.addEventListener('beforeunload', function() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+        });
+    </script>
+</body>
 </html>
